@@ -185,8 +185,14 @@ Out of scope:
   git
 - public docs use generic hostnames, paths, and deployment examples
 
+## License
+
+This project is released under the [MIT License](./LICENSE).
+
 ## Additional docs
 
 - [Deployment Guide](./DEPLOYMENT.md)
 - [Remote Docker Connector Design](./REMOTE_DOCKER_CONNECTOR_DESIGN.md)
+- [Roadmap](./ROADMAP.md)
+- [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Security Policy](./SECURITY.md)
