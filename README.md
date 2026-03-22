@@ -1,5 +1,12 @@
 # Cloudflare Tunnel Panel
 
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![Docker Runtime](https://img.shields.io/badge/runtime-Docker-2496ED.svg)](https://www.docker.com/)
+[![Next.js](https://img.shields.io/badge/framework-Next.js-000000.svg)](https://nextjs.org/)
+[![Cloudflare Tunnel](https://img.shields.io/badge/integration-Cloudflare%20Tunnel-F38020.svg)](https://www.cloudflare.com/products/tunnel/)
+
 Cloudflare Tunnel Panel (CTP) is a Docker-first control plane for managing
 Cloudflare Tunnel hostname bindings without taking ownership of the connector
 runtime itself.
@@ -12,6 +19,18 @@ In this project shape:
   Cloudflare API
 - CTP observes connector status and binding reachability
 - CTP does not control Docker lifecycle, host `cloudflared` config, or `systemd`
+
+## Why this project exists
+
+Many self-hosted setups want one place to manage:
+
+- `hostname -> origin` bindings
+- Cloudflare Tunnel ingress rules
+- proxied DNS records
+- public reachability and connector health
+
+But they do not want the panel itself to become a Docker orchestrator. CTP is
+designed around that boundary.
 
 ## Features
 
@@ -38,6 +57,19 @@ Recommended runtime topology:
 That host-networked model keeps existing targets such as
 `http://127.0.0.1:8080` working from both containers without relying on
 `host.docker.internal`.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A["Operator"] --> B["CTP Panel"]
+    B --> C["Cloudflare API"]
+    C --> D["Tunnel Ingress"]
+    C --> E["DNS Records"]
+    F["cloudflared Connector"] --> C
+    G["Origin Services<br/>127.0.0.1:8080"] --> F
+    B --> G
+```
 
 ## Responsibility split
 
@@ -191,6 +223,7 @@ This project is released under the [MIT License](./LICENSE).
 
 ## Additional docs
 
+- [简体中文 README](./README.zh-CN.md)
 - [Deployment Guide](./DEPLOYMENT.md)
 - [Remote Docker Connector Design](./REMOTE_DOCKER_CONNECTOR_DESIGN.md)
 - [Roadmap](./ROADMAP.md)
