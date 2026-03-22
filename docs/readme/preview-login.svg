@@ -1,0 +1,25 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#07101F"/>
+  <circle cx="1350" cy="110" r="220" fill="#17305C" opacity="0.45"/>
+  <circle cx="260" cy="880" r="240" fill="#10284F" opacity="0.5"/>
+  <rect x="420" y="120" width="760" height="760" rx="40" fill="#0D172C" stroke="#24324C" stroke-width="4"/>
+  <rect x="472" y="180" width="120" height="120" rx="28" fill="#F38020"/>
+  <rect x="506" y="214" width="52" height="16" rx="8" fill="#10223F"/>
+  <rect x="506" y="246" width="76" height="16" rx="8" fill="#10223F" opacity="0.75"/>
+  <text x="640" y="234" fill="#F7FAFF" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="700">Cloudflare Tunnel Panel</text>
+  <text x="640" y="284" fill="#93A4C4" font-family="Segoe UI, Arial, sans-serif" font-size="24">Sign in to manage tunnel ingress, DNS, and connector health.</text>
+  <text x="500" y="390" fill="#CBD5E9" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">Panel Password</text>
+  <rect x="500" y="418" width="600" height="78" rx="20" fill="#111F39" stroke="#2E426A" stroke-width="3"/>
+  <circle cx="546" cy="457" r="8" fill="#8EA3CA"/>
+  <circle cx="576" cy="457" r="8" fill="#8EA3CA"/>
+  <circle cx="606" cy="457" r="8" fill="#8EA3CA"/>
+  <circle cx="636" cy="457" r="8" fill="#8EA3CA"/>
+  <circle cx="666" cy="457" r="8" fill="#8EA3CA"/>
+  <circle cx="696" cy="457" r="8" fill="#8EA3CA"/>
+  <rect x="500" y="538" width="600" height="78" rx="20" fill="#F38020"/>
+  <text x="800" y="588" text-anchor="middle" fill="#081121" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Unlock Panel</text>
+  <rect x="500" y="660" width="600" height="108" rx="24" fill="#0F1F37" stroke="#2A416D" stroke-width="3"/>
+  <text x="540" y="706" fill="#F2F6FF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">Remote-Docker Mode</text>
+  <text x="540" y="744" fill="#93A4C4" font-family="Segoe UI, Arial, sans-serif" font-size="22">CTP controls Cloudflare API state only.</text>
+  <text x="540" y="776" fill="#93A4C4" font-family="Segoe UI, Arial, sans-serif" font-size="22">Connector runtime remains externally managed.</text>
+</svg>

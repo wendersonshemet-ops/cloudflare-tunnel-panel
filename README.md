@@ -1,46 +1,95 @@
-# Cloudflare Tunnel Panel
+<p align="center">
+  <img src="./docs/readme/ctp-logo.svg" alt="Cloudflare Tunnel Panel" width="132" />
+</p>
 
-[English](./README.md) | [简体中文](./README.zh-CN.md)
+<h1 align="center">Cloudflare Tunnel Panel</h1>
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![Docker Runtime](https://img.shields.io/badge/runtime-Docker-2496ED.svg)](https://www.docker.com/)
-[![Next.js](https://img.shields.io/badge/framework-Next.js-000000.svg)](https://nextjs.org/)
-[![Cloudflare Tunnel](https://img.shields.io/badge/integration-Cloudflare%20Tunnel-F38020.svg)](https://www.cloudflare.com/products/tunnel/)
+<p align="center">
+  <strong>Remote-docker control plane for Cloudflare Tunnel ingress, DNS, and connector observability.</strong>
+</p>
 
-Cloudflare Tunnel Panel (CTP) is a Docker-first control plane for managing
-Cloudflare Tunnel hostname bindings without taking ownership of the connector
-runtime itself.
+<p align="center">
+  Manage hostname bindings, publish ingress through the Cloudflare API, and observe tunnel health without turning the panel into a Docker orchestrator.
+</p>
 
-In this project shape:
+<p align="center">
+  <a href="./README.md">English</a> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
-- `ctp` runs in Docker
-- `cloudflared` also runs in Docker, but is treated as an external runtime
-- CTP manages Cloudflare-side ingress rules and DNS records through the
-  Cloudflare API
-- CTP observes connector status and binding reachability
-- CTP does not control Docker lifecycle, host `cloudflared` config, or `systemd`
+<p align="center">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
+  <img src="https://img.shields.io/badge/runtime-Docker-2496ED.svg" alt="Docker Runtime" />
+  <img src="https://img.shields.io/badge/framework-Next.js-000000.svg" alt="Next.js" />
+  <img src="https://img.shields.io/badge/integration-Cloudflare%20Tunnel-F38020.svg" alt="Cloudflare Tunnel" />
+</p>
 
-## Why this project exists
+## At a glance
 
-Many self-hosted setups want one place to manage:
+Cloudflare Tunnel Panel (CTP) is built for teams and self-hosted operators who
+want one place to manage:
 
 - `hostname -> origin` bindings
 - Cloudflare Tunnel ingress rules
 - proxied DNS records
-- public reachability and connector health
+- connector health and public reachability
 
-But they do not want the panel itself to become a Docker orchestrator. CTP is
-designed around that boundary.
+CTP intentionally does **not** own the `cloudflared` container lifecycle.
+Instead, it focuses on Cloudflare-side state and runtime observability.
 
-## Features
+## Interface preview
 
-- Create, update, and delete hostname-to-origin bindings
-- Publish tunnel ingress rules through the Cloudflare Tunnel API
-- Create and update proxied CNAME records automatically
-- Detect connector health from Cloudflare tunnel status
-- Check local origin health and public HTTPS reachability
-- Detect drift between expected bindings and current remote ingress
-- Run as a standalone Next.js production image in Docker
+| Login | Bindings |
+| --- | --- |
+| ![Login preview](./docs/readme/preview-login.svg) | ![Bindings preview](./docs/readme/preview-bindings.svg) |
+
+| Status | Settings |
+| --- | --- |
+| ![Status preview](./docs/readme/preview-status.svg) | ![Settings preview](./docs/readme/preview-settings.svg) |
+
+## Common use cases
+
+| Scenario | What CTP helps with |
+| --- | --- |
+| Home NAS reverse proxy | Publish services like `nas.example.com -> http://127.0.0.1:5666` through a remote-managed tunnel. |
+| Multi-service tunnel management | Keep many hostname bindings in one panel instead of scattering config across manual tunnel edits. |
+| Cloudflare-only control plane | Manage ingress and DNS through the Cloudflare API while leaving Docker runtime ownership outside the panel. |
+
+## Why this project exists
+
+Many setups start with one of two extremes:
+
+- `cloudflared tunnel run --url ...`
+- manually editing Cloudflare Tunnel and DNS in the dashboard
+
+Both approaches work for small setups, but they get harder to reason about once
+you have multiple services, multiple hostnames, and a need for health signals.
+CTP is designed to sit in the middle:
+
+- opinionated enough to keep bindings organized
+- narrow enough to avoid Docker socket access and lifecycle sprawl
+
+## Feature comparison
+
+| Capability | CTP | `cloudflared --url` only | Manual Cloudflare edits |
+| --- | --- | --- | --- |
+| Multi-hostname binding management | Yes | Limited | Manual |
+| Remote ingress publishing | Yes | No | Yes |
+| DNS record synchronization | Yes | No | Manual |
+| Connector status visibility | Yes | Minimal | Partial |
+| Origin and public health checks | Yes | No | No |
+| Drift detection | Yes | No | No |
+| Docker lifecycle ownership | No | External | External |
+| Good operator UX at scale | Yes | Low | Low |
+
+## Quick demo
+
+| Step 1 | Step 2 | Step 3 |
+| --- | --- | --- |
+| ![Create binding](./docs/readme/demo-step-1.svg) | ![Publish to Cloudflare](./docs/readme/demo-step-2.svg) | ![Verify and observe](./docs/readme/demo-step-3.svg) |
+
+1. Create a binding by choosing a hostname, origin service, and tunnel.
+2. Let CTP push ingress rules and sync the proxied CNAME through the Cloudflare API.
+3. Verify local origin health, public HTTPS reachability, and connector status from the panel.
 
 ## Runtime model
 
@@ -87,17 +136,6 @@ CTP does not manage:
 - `/etc/cloudflared/config.yml`
 - `systemctl`
 - PID files or local reload hooks
-
-## Why `cloudflared` still needs `TUNNEL_TOKEN`
-
-CTP can manage the Cloudflare-side tunnel configuration, but it still needs a
-running connector process to carry traffic from Cloudflare back to your origin
-services.
-
-The `TUNNEL_TOKEN` gives the `cloudflared` container permission to join a
-specific remote-managed tunnel. Without that token, CTP may successfully create
-DNS records and ingress rules, but no live connector will be available to serve
-requests.
 
 ## Prerequisites
 
@@ -154,41 +192,27 @@ requests.
 
 4. Open the panel at `http://127.0.0.1:<PORT>`.
 
-## Docker deployment
+## FAQ
 
-The repository ships with:
+### Why does `cloudflared` still need `TUNNEL_TOKEN`?
 
-- `Dockerfile` for the CTP production image
-- `docker-compose.yml` for the runtime stack
-- `docker-compose.prod.yml` as the equivalent production compose file
+Because CTP manages Cloudflare-side configuration, not connector identity.
+`TUNNEL_TOKEN` is what lets the running `cloudflared` container attach to a
+specific remote-managed tunnel and actually proxy traffic back to your origins.
 
-Example deployment path:
+### Why not mount the Docker socket and control containers directly?
 
-```text
-/opt/cloudflare-tunnel-panel
-```
+That would expand CTP from a Cloudflare control plane into a container runtime
+manager. The current design deliberately avoids that security and operational
+coupling. CTP observes the connector, but Docker remains responsible for
+starting and restarting it.
 
-If host port `3000` is already in use, change `PORT` in `.env.production`.
-Because the compose healthcheck reads `PORT`, no other compose changes are
-required.
+### Why use `network_mode: host`?
 
-## Example binding flow
-
-For a binding like:
-
-- hostname: `app.example.com`
-- origin: `http://127.0.0.1:8080`
-
-CTP will:
-
-1. publish the ingress rule to the selected tunnel
-2. create or update the proxied CNAME record
-3. check local origin reachability from inside the `ctp` container
-4. check public HTTPS reachability through Cloudflare
-5. display connector health using Cloudflare tunnel data
-
-If the `cloudflared` container stops, CTP will show the connector as degraded
-or offline, but it will not try to restart the container.
+Because it keeps host-local targets such as `http://127.0.0.1:8080` valid from
+inside both the `ctp` and `cloudflared` containers. That removes a lot of
+special-case networking logic and keeps service health checks aligned with the
+actual deployment host.
 
 ## Local development
 

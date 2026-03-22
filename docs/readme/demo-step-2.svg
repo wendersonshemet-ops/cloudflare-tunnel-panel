@@ -1,0 +1,18 @@
+<svg width="960" height="560" viewBox="0 0 960 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="560" rx="36" fill="#0B1426"/>
+  <rect x="36" y="36" width="888" height="488" rx="28" fill="#0F1B34" stroke="#294064" stroke-width="3"/>
+  <circle cx="118" cy="112" r="44" fill="#4B7BFF"/>
+  <text x="118" y="126" text-anchor="middle" fill="#EDF3FF" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">2</text>
+  <text x="188" y="118" fill="#F7FAFF" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">Publish to Cloudflare</text>
+  <text x="188" y="162" fill="#93A4C4" font-family="Segoe UI, Arial, sans-serif" font-size="22">CTP pushes ingress rules and syncs the proxied CNAME record.</text>
+  <rect x="88" y="226" width="360" height="230" rx="24" fill="#132542"/>
+  <text x="122" y="276" fill="#F7FAFF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">Tunnel Ingress</text>
+  <rect x="122" y="304" width="292" height="46" rx="12" fill="#0F1B34"/>
+  <text x="144" y="334" fill="#C7D3E9" font-family="Segoe UI, Arial, sans-serif" font-size="18">app.example.com -&gt; http://127.0.0.1:8080</text>
+  <rect x="512" y="226" width="360" height="230" rx="24" fill="#132542"/>
+  <text x="546" y="276" fill="#F7FAFF" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">DNS</text>
+  <rect x="546" y="304" width="292" height="46" rx="12" fill="#0F1B34"/>
+  <text x="568" y="334" fill="#C7D3E9" font-family="Segoe UI, Arial, sans-serif" font-size="18">app.example.com -&gt; tunnel-id.cfargotunnel.com</text>
+  <path d="M448 340H512" stroke="#F38020" stroke-width="10" stroke-linecap="round"/>
+  <path d="M492 322L512 340L492 358" stroke="#F38020" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
