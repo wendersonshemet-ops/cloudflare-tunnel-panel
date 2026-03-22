@@ -1,0 +1,9 @@
+node_modules
+.next
+data
+.git
+.claude
+memory
+*.log
+*.local
+tsconfig.tsbuildinfo

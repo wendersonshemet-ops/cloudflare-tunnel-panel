@@ -1,0 +1,160 @@
+import { AppState, DashboardSummary } from "@/lib/types";
+
+export const mockState: AppState = {
+  zones: [
+    {
+      id: "zone_main",
+      name: "example.com",
+      status: "active",
+      boundCount: 3,
+      tunnelStatus: "online",
+      syncedAt: "2026-03-14 03:20 UTC",
+    },
+    {
+      id: "zone_lab",
+      name: "lab.example.com",
+      status: "active",
+      boundCount: 1,
+      tunnelStatus: "degraded",
+      syncedAt: "2026-03-14 03:16 UTC",
+    },
+  ],
+  tunnels: [
+    {
+      id: "tunnel_prod",
+      name: "prod-tunnel",
+      status: "online",
+      connectorCount: 2,
+      configPath: "/etc/cloudflared/config.yml",
+      syncedAt: "2026-03-14 03:20 UTC",
+    },
+    {
+      id: "tunnel_lab",
+      name: "lab-tunnel",
+      status: "degraded",
+      connectorCount: 1,
+      configPath: "/etc/cloudflared/lab.panel.yml",
+      syncedAt: "2026-03-14 03:18 UTC",
+    },
+  ],
+  services: [
+    {
+      id: "svc_code",
+      name: "Code Server",
+      scheme: "http",
+      host: "127.0.0.1",
+      port: 45191,
+      healthCheckPath: "/",
+      source: "manual",
+      healthy: true,
+      statusCode: 200,
+      boundHostname: "code.example.com",
+      updatedAt: "2026-03-14 03:19 UTC",
+    },
+    {
+      id: "svc_panel",
+      name: "FRP Panel",
+      scheme: "http",
+      host: "127.0.0.1",
+      port: 9000,
+      healthCheckPath: "/",
+      source: "manual",
+      healthy: true,
+      statusCode: 200,
+      boundHostname: "frp.example.com",
+      updatedAt: "2026-03-14 03:19 UTC",
+    },
+    {
+      id: "svc_docs",
+      name: "Docs Preview",
+      scheme: "http",
+      host: "127.0.0.1",
+      port: 28743,
+      healthCheckPath: "/health",
+      source: "manual",
+      healthy: false,
+      statusCode: 502,
+      boundHostname: null,
+      updatedAt: "2026-03-14 03:12 UTC",
+    },
+  ],
+  bindings: [
+    {
+      id: "bind_code",
+      zoneId: "zone_main",
+      zoneName: "example.com",
+      hostname: "code.example.com",
+      serviceId: "svc_code",
+      serviceName: "Code Server",
+      serviceTarget: "http://127.0.0.1:45191",
+      tunnelId: "tunnel_prod",
+      tunnelName: "prod-tunnel",
+      dnsStatus: "healthy",
+      dnsRecordId: "dns_bind_code",
+      dnsRecordContent: "tunnel_prod.cfargotunnel.com",
+      tunnelStatus: "healthy",
+      accessStatus: "healthy",
+      localStatus: "healthy",
+      checkedAt: "2026-03-14 03:20 UTC",
+      updatedAt: "2026-03-14 03:19 UTC",
+    },
+    {
+      id: "bind_frp",
+      zoneId: "zone_main",
+      zoneName: "example.com",
+      hostname: "frp.example.com",
+      serviceId: "svc_panel",
+      serviceName: "FRP Panel",
+      serviceTarget: "http://127.0.0.1:9000",
+      tunnelId: "tunnel_prod",
+      tunnelName: "prod-tunnel",
+      dnsStatus: "healthy",
+      dnsRecordId: "dns_bind_frp",
+      dnsRecordContent: "tunnel_prod.cfargotunnel.com",
+      tunnelStatus: "healthy",
+      accessStatus: "warning",
+      localStatus: "healthy",
+      checkedAt: "2026-03-14 03:20 UTC",
+      updatedAt: "2026-03-14 03:18 UTC",
+    },
+    {
+      id: "bind_lab",
+      zoneId: "zone_lab",
+      zoneName: "lab.example.com",
+      hostname: "preview.lab.example.com",
+      serviceId: "svc_docs",
+      serviceName: "Docs Preview",
+      serviceTarget: "http://127.0.0.1:28743",
+      tunnelId: "tunnel_lab",
+      tunnelName: "lab-tunnel",
+      dnsStatus: "healthy",
+      dnsRecordId: "dns_bind_lab",
+      dnsRecordContent: "tunnel_lab.cfargotunnel.com",
+      tunnelStatus: "warning",
+      accessStatus: "error",
+      localStatus: "error",
+      checkedAt: "2026-03-14 03:18 UTC",
+      updatedAt: "2026-03-14 03:10 UTC",
+    },
+  ],
+};
+
+export function getDashboardSummary(): DashboardSummary {
+  const { zones, services, bindings, tunnels } = mockState;
+  const incidentCount = bindings.filter(
+    (item) =>
+      item.accessStatus !== "healthy" ||
+      item.localStatus !== "healthy" ||
+      item.tunnelStatus !== "healthy" ||
+      item.dnsStatus !== "healthy",
+  ).length;
+
+  return {
+    zoneCount: zones.length,
+    serviceCount: services.length,
+    bindingCount: bindings.length,
+    incidentCount,
+    tunnelOnlineCount: tunnels.filter((t) => t.status === "online").length,
+    tunnelTotalCount: tunnels.length,
+  };
+}

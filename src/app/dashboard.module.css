@@ -1,0 +1,27 @@
+.section {
+  margin-top: 0;
+}
+
+.noticeInline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 247, 237, 0.88);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.noticeInlineLabel {
+  flex-shrink: 0;
+  color: #92400e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.noticeInlineText {
+  color: #b45309;
+  font-size: 12px;
+  line-height: 1.5;
+}
