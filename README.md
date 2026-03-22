@@ -258,6 +258,5 @@ This project is released under the [MIT License](./LICENSE).
 - [Contributing Guide](./CONTRIBUTING.md)
 - [Roadmap](./ROADMAP.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
-- [Agent GitHub Publish Runbook](./docs/AGENT_GITHUB_PUBLISH_RUNBOOK.md)
 - [README Assets Workflow](./docs/README_ASSETS.md)
 - [Security Policy](./SECURITY.md)
