@@ -11,12 +11,6 @@ It is written to support a one-pass workflow:
 - commit and push without leaking credentials
 - update metadata and close with a clear summary
 
-Companion documents:
-
-- [Agent Prompt Template](./AGENT_PROMPT_TEMPLATE.md)
-- [GitHub Publish Intake Template](./GITHUB_PUBLISH_INTAKE_TEMPLATE.md)
-- [Release Playbook](./RELEASE_PLAYBOOK.md)
-
 ## Scope
 
 Use this workflow when the user wants an agent to:

@@ -255,8 +255,5 @@ npm run build
 - [Roadmap](./ROADMAP.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
 - [Agent GitHub Publish Runbook](./docs/AGENT_GITHUB_PUBLISH_RUNBOOK.md)
-- [Agent Prompt Template](./docs/AGENT_PROMPT_TEMPLATE.md)
-- [GitHub Publish Intake Template](./docs/GITHUB_PUBLISH_INTAKE_TEMPLATE.md)
-- [Release Playbook](./docs/RELEASE_PLAYBOOK.md)
 - [README 资产生成流程](./docs/README_ASSETS.md)
 - [Security Policy](./SECURITY.md)
