@@ -38,13 +38,18 @@ Instead, it focuses on Cloudflare-side state and runtime observability.
 
 ## Interface preview
 
-| Login | Bindings |
-| --- | --- |
-| ![Login preview](./docs/readme/preview-login.svg) | ![Bindings preview](./docs/readme/preview-bindings.svg) |
+Screenshots below are generated from a sanitized demo database rather than a
+live deployment.
 
-| Status | Settings |
-| --- | --- |
-| ![Status preview](./docs/readme/preview-status.svg) | ![Settings preview](./docs/readme/preview-settings.svg) |
+<p>
+  <img src="./docs/readme/screenshots/login.png" alt="Login screenshot" width="49%" />
+  <img src="./docs/readme/screenshots/bindings.png" alt="Bindings screenshot" width="49%" />
+</p>
+
+<p>
+  <img src="./docs/readme/screenshots/overview.png" alt="Overview screenshot" width="49%" />
+  <img src="./docs/readme/screenshots/settings.png" alt="Settings screenshot" width="49%" />
+</p>
 
 ## Common use cases
 
@@ -250,6 +255,8 @@ This project is released under the [MIT License](./LICENSE).
 - [简体中文 README](./README.zh-CN.md)
 - [Deployment Guide](./DEPLOYMENT.md)
 - [Remote Docker Connector Design](./REMOTE_DOCKER_CONNECTOR_DESIGN.md)
+- [Contributing Guide](./CONTRIBUTING.md)
 - [Roadmap](./ROADMAP.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
+- [README Assets Workflow](./docs/README_ASSETS.md)
 - [Security Policy](./SECURITY.md)

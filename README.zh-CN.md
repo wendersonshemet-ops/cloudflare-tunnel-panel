@@ -40,13 +40,17 @@ CTP 的设计边界非常明确：
 
 ## 界面预览
 
-| 登录页 | 绑定页 |
-| --- | --- |
-| ![登录页预览](./docs/readme/preview-login.svg) | ![绑定页预览](./docs/readme/preview-bindings.svg) |
+下面这些截图不是来自真实线上环境，而是由一份脱敏的演示数据库生成的。
 
-| 状态页 | 设置页 |
-| --- | --- |
-| ![状态页预览](./docs/readme/preview-status.svg) | ![设置页预览](./docs/readme/preview-settings.svg) |
+<p>
+  <img src="./docs/readme/screenshots/login.png" alt="登录页截图" width="49%" />
+  <img src="./docs/readme/screenshots/bindings.png" alt="绑定页截图" width="49%" />
+</p>
+
+<p>
+  <img src="./docs/readme/screenshots/overview.png" alt="状态页截图" width="49%" />
+  <img src="./docs/readme/screenshots/settings.png" alt="设置页截图" width="49%" />
+</p>
 
 ## 典型使用场景
 
@@ -247,6 +251,8 @@ npm run build
 - [English README](./README.md)
 - [Deployment Guide](./DEPLOYMENT.md)
 - [Remote Docker Connector Design](./REMOTE_DOCKER_CONNECTOR_DESIGN.md)
+- [贡献指南](./CONTRIBUTING.md)
 - [Roadmap](./ROADMAP.md)
 - [Release Checklist](./RELEASE_CHECKLIST.md)
+- [README 资产生成流程](./docs/README_ASSETS.md)
 - [Security Policy](./SECURITY.md)
